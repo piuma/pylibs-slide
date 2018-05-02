@@ -1,0 +1,437 @@
+# PyRoma
+### 20 librerie python di cui non potrai fare a meno
+
+Danilo Abbasciano
+
+danilo@piumalab.org
+-
+## Who?
+```python
+def my(self):
+    """
+    Senior System Engineer.
+
+    Managing large infrastructure,
+    coding in several languages but loves writing in Python.
+
+    I try to optimize the world!
+    """
+    pass
+```
+-
+## What?
+Today i am going to list 20 python libraries which have been a part of
+my toolbelt and should be a part of yours as well.
+-
+## Why?
+
+---
+## arrow
+better dates and times
+
+http://arrow.readthedocs.io/en/latest/
+-
+#### arrow: Why?
+Python's standard library have near-complete date, time and timezone
+functionality but don't work very well from a usability perspective:
+
+ - Too many modules: datetime, time, calendar, dateutil, pytz and more
+ - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc.
+ - Timezones and timestamp conversions are verbose
+ - Timezone naivety is the norm
+ - Gaps in functionality: ISO-8601 parsing, time spans, humanization
+-
+#### arrow: Example
+```python
+>>> import arrow
+>>> utc = arrow.utcnow()
+>>> utc
+<Arrow [2013-05-11T21:23:58.970460+00:00]>
+
+>>> utc = utc.shift(hours=-1)
+>>> utc
+<Arrow [2013-05-11T20:23:58.970460+00:00]>
+
+>>> local = utc.to('US/Pacific')
+>>> local
+<Arrow [2013-05-11T13:23:58.970460-07:00]>
+
+>>> arrow.get('2013-05-11T21:23:58.970460+00:00')
+<Arrow [2013-05-11T21:23:58.970460+00:00]>
+```
+-
+#### arrow: Example 2
+```python
+>>> local.timestamp
+1368303838
+
+>>> local.format()
+'2013-05-11 13:23:58 -07:00'
+
+>>> local.format('YYYY-MM-DD HH:mm:ss ZZ')
+'2013-05-11 13:23:58 -07:00'
+
+>>> local.humanize()
+'an hour ago'
+
+>>> local.humanize(locale='ko_kr')
+'1시간 전'
+```
+---
+## SQLAlchemy
+
+---
+## Pony
+
+Write SQL queries using Python generators & lambdas
+
+![text](md/image/pony.jpg)
+
+https://ponyorm.com/
+-
+#### pony: example
+```python
+select(c for c in Customer if sum(c.orders.price) > 1000)
+```
+```sql
+SELECT "c"."id"
+FROM "customer" "c"
+  LEFT JOIN "order" "order-1"
+    ON "c"."id" = "order-1"."customer"
+GROUP BY "c"."id"
+HAVING coalesce(SUM("order-1"."total_price"), 0) > 1000
+```
+-
+#### pony: example 2
+```python
+select(c for c in Customer if sum(c.orders.price) > 1000)
+```
+Here is the same query written using the lambda function:
+```python
+Customer.select(lambda c: sum(c.orders.price) > 1000)
+```
+---
+## colorama
+Makes ANSI escape character sequences for producing colored terminal
+text
+
+![text](md/image/colorama.png)
+
+https://pypi.org/project/colorama/
+-
+#### colorama: example
+```python
+from colorama import init, Fore, Back, Style
+init()
+
+print(Fore.RED + 'some red text')
+print(Back.GREEN + 'and with a green background')
+print(Style.DIM + 'and in dim text')
+print(Style.RESET_ALL)
+print('back to normal now')
+```
+---
+## colorlog
+Log formatting with colors
+
+![text](md/image/colorlog.png)
+
+https://pypi.org/project/colorlog/
+-
+#### colorlog: usage
+```
+import colorlog
+
+handler = colorlog.StreamHandler()
+handler.setFormatter(colorlog.ColoredFormatter(
+	'%(log_color)s%(levelname)s:%(name)s:%(message)s'))
+
+logger = colorlog.getLogger('example')
+logger.addHandler(handler)
+```
+---
+## begins
+
+Command line programs for lazy humans
+
+https://pypi.org/project/begins/
+-
+#### begins: example
+```python
+>>> import begin
+>>> @begin.start
+... def run(name='Arther', quest='Holy Grail', colour='red', *knights):
+...     "tis but a scratch!"
+```
+-
+#### begins: example
+```bash
+usage: example.py [-h] [-n NAME] [-q QUEST] [-c COLOUR]
+                  [knights [knights ...]]
+
+tis but a scratch!
+
+positional arguments:
+  knights
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n NAME, --name NAME  (default: Arther)
+  -q QUEST, --quest QUEST
+                        (default: Holy Grail)
+  -c COLOUR, --colour COLOUR
+                        (default: red)
+```
+---
+## pywebview
+
+![text](md/image/pywebview.png)
+
+https://github.com/r0x0r/pywebview
+-
+#### pywebview
+pywebview is a lightweight cross-platform wrapper around a webview
+component that allows to display HTML content in its own native GUI
+window. It gives you power of web technologies in your desktop
+application, hiding the fact that GUI is browser based.
+---
+## bokeh
+is an interactive visualization library that targets modern web
+browsers for presentation
+
+![text](md/image/bokeh.png)
+
+https://bokeh.pydata.org/en/latest/
+-
+#### bokeh
+Its goal is to provide elegant, concise
+construction of versatile graphics, and to extend this capability with
+high-performance interactivity over very large or streaming
+datasets. Bokeh can help anyone who would like to quickly and easily
+create interactive plots, dashboards, and data applications.
+-
+#### bokeh: example
+```
+from __future__ import division
+
+import numpy as np
+
+from bokeh.plotting import figure, show, output_file
+
+N = 20
+img = np.empty((N,N), dtype=np.uint32)
+view = img.view(dtype=np.uint8).reshape((N, N, 4))
+for i in range(N):
+    for j in range(N):
+        view[i, j, 0] = int(i/N*255)
+        view[i, j, 1] = 158
+        view[i, j, 2] = int(j/N*255)
+        view[i, j, 3] = 255
+
+p = figure(x_range=(0,10), y_range=(0,10))
+
+# must give a vector of images
+p.image_rgba(image=[img], x=0, y=0, dw=10, dh=10)
+
+output_file("image_rgba.html", title="image_rgba.py example")
+
+show(p)  # open a browser
+```
+-
+#### boke: output
+![text](md/image/bokeh_example.png)
+---
+## psutil
+
+Cross-platform lib for process and system monitoring
+
+https://github.com/giampaolo/psutil
+-
+#### psutil
+psutil (process and system utilities) is a cross-platform library for
+retrieving information on running processes and system utilization
+(CPU, memory, disks, network, sensors).
+
+It is useful mainly for system monitoring, profiling and limiting
+process resources and management of running processes.
+-
+#### psutil: example
+```
+>>> import psutil
+>>> psutil.cpu_count()
+4
+>>> for x in range(3):
+...     psutil.cpu_percent(interval=1, percpu=True)
+...
+[4.0, 6.9, 3.7, 9.2]
+[7.0, 8.5, 2.4, 2.1]
+[1.2, 9.0, 9.9, 7.2]
+```
+-
+#### psutil: example
+```
+>>> psutil.disk_usage('/')
+sdiskusage(total=52576092160, used=44855128064, free=5019832320, percent=89.9)
+
+>>> psutil.users()
+[suser(name='giampaolo', terminal='pts/2', host='localhost', started=1524468091.0, pid=1352),
+ suser(name='piuma', terminal='tty2', host='/dev/tty2', started=1524468096.0, pid=1375)]
+```
+---
+## hug
+
+Drastically simplify API development over multiple interfaces
+
+![text](md/image/hug.png)
+
+http://www.hug.rest/
+-
+#### hug
+Design and develop your API once, then expose it however your
+clients need to consume it. Be it locally, over HTTP, or through the
+command line - hug is the fastest and most modern way to create APIs
+on Python3.
+---
+## scrapy
+
+framework for extracting the data you need from websites.
+In a fast, simple, yet extensible way.
+
+![text](md/image/scrapy.png)
+
+https://scrapy.org/
+-
+#### scrapy: example
+```
+import scrapy
+
+class BlogSpider(scrapy.Spider):
+    name = 'blogspider'
+    start_urls = ['https://blog.scrapinghub.com']
+
+    def parse(self, response):
+        for title in response.css('h2.entry-title'):
+            yield {'title': title.css('a ::text').extract_first()}
+
+        for next_page in response.css('div.prev-post > a'):
+            yield response.follow(next_page, self.parse)
+```
+-
+#### scrapy: selectors
+```
+>>> from scrapy.selector import Selector
+>>> from scrapy.http import HtmlResponse
+```
+```
+>>> body = '<html><body><span>good</span></body></html>'
+>>> Selector(text=body).xpath('//span/text()').extract()
+[u'good']
+```
+```
+>>> response = HtmlResponse(url='http://example.com', body=body)
+>>> Selector(response=response).xpath('//span/text()').extract()
+[u'good']
+```
+```
+>>> response.selector.xpath('//span/text()').extract()
+[u'good']
+```
+---
+## pysftpserver
+
+pysftpserver An OpenSSH SFTP wrapper
+
+https://github.com/unbit/pysftpserver
+-
+#### pysftpserver: Features
+
+ * Possibility to automatically jail users in a virtual chroot environment as soon as they login.
+ * Possibility to automatically forward SFTP requests to another server.
+ * Compatible with both Python 2 and Python 3.
+ * Fully extensible and customizable (examples below).
+ * Totally conforms to the SFTP RFC.
+---
+## lxml
+
+it's the most feature-rich and easy-to-use library for processing XML
+and HTML
+
+![text](md/image/lxml.png)
+
+http://lxml.de/
+
+-
+#### lxml: Why?
+
+ * Pythonic API.
+ * Documented.
+ * Use Python unicode strings in API.
+ * Safe (no segfaults).
+ * No manual memory management!
+---
+## jsonschema
+---
+## networkx
+
+for the creation, manipulation, and study of the structure, dynamics,
+and functions of complex networks.
+
+![text](md/image/networkx.png)
+
+https://networkx.github.io/
+-
+#### networkx: example
+```
+>>> import networkx as nx
+>>> G = nx.Graph()
+
+>>> G.add_node(1)
+>>> G.add_nodes_from([2, 3])
+
+>>> G.add_edge(1, 2)
+>>> G.add_edges_from([(1, 2), (1, 3)])
+```
+-
+#### networkx: example
+```
+import matplotlib.pyplot as plt
+import networkx as nx
+
+G = nx.star_graph(20)
+pos = nx.spring_layout(G)
+colors = range(20)
+nx.draw(G, pos, node_color='#A0CBE2', edge_color=colors,
+        width=4, edge_cmap=plt.cm.Blues, with_labels=False)
+plt.show()
+```
+-
+#### networkx: example
+![text](md/image/networkx_example.png)
+---
+## Blessings, prompt-toolkit
+---
+## asciimatics
+---
+## doctest
+https://github.com/marco-buttu/pycon8
+---
+## nose
+---
+## pillow
+---
+## pytest-play
+
+is a pytest plugin that let you play a json file
+containing previously recorded selenium splinter actions driving your
+browser for your UI test.
+
+https://github.com/davidemoro/pytest-play
+---
+## requests / grequests
+https://speakerdeck.com/andreagrandi/getting-started-with-requests-http-library
+---
+## sched
+---
+# Thanks
+
+#### danilo@piumalab.org
