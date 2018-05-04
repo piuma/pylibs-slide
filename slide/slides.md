@@ -193,6 +193,8 @@ window.
 
 It gives you power of web technologies in your desktop
 application, hiding the fact that GUI is browser based.
+-
+![text](md/image/pywebview_example.png)
 ---
 ## bokeh
 is an interactive visualization library that targets modern web
@@ -206,7 +208,9 @@ https://bokeh.pydata.org/en/latest/
 Its goal is to provide elegant, concise
 construction of versatile graphics, and to extend this capability with
 high-performance interactivity over very large or streaming
-datasets. Bokeh can help anyone who would like to quickly and easily
+datasets.
+
+Bokeh can help anyone who would like to quickly and easily
 create interactive plots, dashboards, and data applications.
 -
 #### bokeh: example
@@ -286,8 +290,7 @@ http://www.hug.rest/
 #### hug
 Design and develop your API once, then expose it however your
 clients need to consume it. Be it locally, over HTTP, or through the
-command line - hug is the fastest and most modern way to create APIs
-on Python3.
+command line
 -
 #### hug: example
 ```python
@@ -371,11 +374,11 @@ https://github.com/unbit/pysftpserver
 -
 #### pysftpserver: Features
 
- * Possibility to automatically jail users in a virtual chroot environment as soon as they login.
- * Possibility to automatically forward SFTP requests to another server.
- * Compatible with both Python 2 and Python 3.
- * Fully extensible and customizable (examples below).
- * Totally conforms to the SFTP RFC.
+ * Possibility to automatically jail users in a virtual chroot environment as soon as they login
+ * Possibility to automatically forward SFTP requests to another server
+ * Compatible with both Python 2 and Python 3
+ * Fully extensible and customizable (examples below)
+ * Totally conforms to the SFTP RFC
 ---
 ## lxml
 
@@ -389,13 +392,53 @@ http://lxml.de/
 -
 #### lxml: Why?
 
- * Pythonic API.
- * Documented.
- * Use Python unicode strings in API.
- * Safe (no segfaults).
- * No manual memory management!
+ * Pythonic API
+ * Documented
+ * Use Python unicode strings in API
+ * Safe (no segfaults)
+ * No manual memory management
 ---
 ## jsonschema
+
+an implementation of JSON Schema
+
+https://python-jsonschema.readthedocs.io
+-
+#### jsonschema: example
+```python
+>>> from jsonschema import validate
+
+>>> # A sample schema, like what we'd get from json.load()
+>>> schema = {
+...     "type" : "object",
+...     "properties" : {
+...         "price" : {"type" : "number"},
+...         "name" : {"type" : "string"},
+...     },
+... }
+
+>>> # If no exception is raised the instance is valid.
+>>> validate({"name" : "Eggs", "price" : 34.99}, schema)
+```
+-
+#### jsonschema: example
+```python
+>>> from jsonschema import validate
+
+>>> # A sample schema, like what we'd get from json.load()
+>>> schema = {
+...     "type" : "object",
+...     "properties" : {
+...         "price" : {"type" : "number"},
+...         "name" : {"type" : "string"},
+...     },
+... }
+
+>>> validate({"name" : "Eggs", "price" : "Invalid"}, schema)
+Traceback (most recent call last):
+    ...
+ValidationError: 'Invalid' is not of type 'number'
+```
 ---
 ## networkx
 
@@ -407,7 +450,7 @@ and functions of complex networks.
 https://networkx.github.io/
 -
 #### networkx: example
-```
+```python
 >>> import networkx as nx
 >>> G = nx.Graph()
 
@@ -419,7 +462,7 @@ https://networkx.github.io/
 ```
 -
 #### networkx: example
-```
+```python
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -444,28 +487,104 @@ http://asciimatics.readthedocs.io
 -
 #### asciimatics: Why?
 
-    tyled text - including 256 colour terminals
-    Cursor positioning
-    Keyboard input (without blocking or echoing)
-    Mouse input (terminal permitting)
-    Detecting and handling when the console resizes
-    Screen scraping
+ - tyled text - including 256 colour terminals
+ - Cursor positioning
+ - Keyboard input (without blocking or echoing)
+ - Mouse input (terminal permitting)
+ - Detecting and handling when the console resizes
+ - Screen scraping
 
 In addition, it provides some simple, high-level APIs to provide more complex features including:
 
-    Anti-aliased ASCII line-drawing
-    Image to ASCII conversion - including JPEG and GIF formats
-    Many animation effects - e.g. sprites, particle systems, banners, etc.
-    Various widgets for text UIs - e.g. buttons, text boxes, radio buttons, etc.
+ - Anti-aliased ASCII line-drawing
+ - Image to ASCII conversion - including JPEG and GIF formats
+ - Many animation effects - e.g. sprites, particle systems, banners, etc.
+ - Various widgets for text UIs - e.g. buttons, text boxes, radio
+ - buttons, etc.
+-
+
+---
+## prettytable
+---
+## wget
+---
+## snowballstemmer
+---
+## sh
+---
+## fuzzywuzzy
+---
+## progressbar
 ---
 ## doctest
-https://github.com/marco-buttu/pycon8
+
+searches for pieces of text that look like interactive Python
+sessions, and then executes those sessions to verify that they work
+exactly as shown
+
+https://docs.python.org/2/library/doctest.html
+-
+#### doctest: example
+```python
+import doctest
+doctest.testfile("example.txt")
+```
+```python
+The ``example`` module
+======================
+
+Using ``factorial``
+-------------------
+
+This is an example text file in reStructuredText format.
+First import ``factorial`` from the ``example`` module:
+
+    >>> from example import factorial
+
+Now use it:
+
+    >>> factorial(6)
+    120
+```
+-
+#### doctest: example
+```
+File "./example.txt", line 14, in example.txt
+Failed example:
+    factorial(6)
+Expected:
+    120
+Got:
+    720
+```
 ---
 ## nose
----
-## SQLAlchemy
+
+nose extends unittest to make testing easier
+
+http://nose.readthedocs.io/
 ---
 ## pillow
+
+friendly PIL (Python Imaging Library) fork
+
+https://pillow.readthedocs.io/
+-
+#### pillow: creating thumbnails
+```
+from PIL import Image
+
+size = (128, 128)
+
+try:
+    im =  Image.open("Image.png")
+except:
+    print "Unable to load image"
+
+im.thumbnail(size)
+im.save("image.jpeg")
+im.show()
+```
 ---
 ## pytest-play
 
@@ -475,10 +594,55 @@ browser for your UI test.
 
 https://github.com/davidemoro/pytest-play
 ---
-## requests / grequests
-https://speakerdeck.com/andreagrandi/getting-started-with-requests-http-library
+## grequests
+
+GRequests allows you to use Requests with Gevent to make asynchronous
+HTTP Requests easily
+
+https://github.com/kennethreitz/grequests
+-
+#### grequests
+```
+import grequests
+urls = [
+    'http://www.piumalab.org',
+    'http://kernel.org',
+    'http://python-requests.org',
+    'http://fakedomain/'
+]
+# Create a set of unsent Requests:
+rs = (grequests.get(u) for u in urls)
+
+# Send them all at the same time:
+grequests.map(rs)
+```
 ---
 ## sched
+
+implements a general purpose event scheduler
+
+https://docs.python.org/3/library/sched.html
+-
+#### sched: example
+```python
+>>> import sched, time
+>>> s = sched.scheduler(time.time, time.sleep)
+>>> def print_time(a='default'):
+...     print("From print_time", time.time(), a)
+...
+>>> def print_some_times():
+...     print(time.time())
+...     s.enter(10, 1, print_time)
+...     s.enter(5, 2, print_time, argument=('positional',))
+...     s.enter(5, 1, print_time, kwargs={'a': 'keyword'})
+...     s.run()
+...
+>>> print_some_times()
+930343690.257
+From print_time 930343695.274 positional
+From print_time 930343695.275 keyword
+From print_time 930343700.273 default
+```
 ---
 # Thanks
 
