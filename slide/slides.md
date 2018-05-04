@@ -38,8 +38,6 @@ functionality but don't work very well from a usability perspective:
  - Too many modules: datetime, time, calendar, dateutil, pytz and more
  - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc.
  - Timezones and timestamp conversions are verbose
- - Timezone naivety is the norm
- - Gaps in functionality: ISO-8601 parsing, time spans, humanization
 -
 #### arrow: Example
 ```python
@@ -77,9 +75,6 @@ functionality but don't work very well from a usability perspective:
 >>> local.humanize(locale='ko_kr')
 '1시간 전'
 ```
----
-## SQLAlchemy
-
 ---
 ## Pony
 
@@ -158,10 +153,11 @@ https://pypi.org/project/begins/
 -
 #### begins: example
 ```python
->>> import begin
->>> @begin.start
-... def run(name='Arther', quest='Holy Grail', colour='red', *knights):
-...     "tis but a scratch!"
+import begin
+
+@begin.start
+def run(name='Arther', quest='Holy Grail', colour='red', *knights):
+    "tis but a scratch!"
 ```
 -
 #### begins: example
@@ -185,14 +181,17 @@ optional arguments:
 ---
 ## pywebview
 
+lightweight cross-platform wrapper around webview
+
 ![text](md/image/pywebview.png)
 
 https://github.com/r0x0r/pywebview
 -
 #### pywebview
-pywebview is a lightweight cross-platform wrapper around a webview
-component that allows to display HTML content in its own native GUI
-window. It gives you power of web technologies in your desktop
+allows to display HTML content in its own native GUI
+window.
+
+It gives you power of web technologies in your desktop
 application, hiding the fact that GUI is browser based.
 ---
 ## bokeh
@@ -211,11 +210,9 @@ datasets. Bokeh can help anyone who would like to quickly and easily
 create interactive plots, dashboards, and data applications.
 -
 #### bokeh: example
-```
+```python
 from __future__ import division
-
 import numpy as np
-
 from bokeh.plotting import figure, show, output_file
 
 N = 20
@@ -235,7 +232,7 @@ p.image_rgba(image=[img], x=0, y=0, dw=10, dh=10)
 
 output_file("image_rgba.html", title="image_rgba.py example")
 
-show(p)  # open a browser
+show(p) # open a browser
 ```
 -
 #### boke: output
@@ -291,6 +288,35 @@ Design and develop your API once, then expose it however your
 clients need to consume it. Be it locally, over HTTP, or through the
 command line - hug is the fastest and most modern way to create APIs
 on Python3.
+-
+#### hug: example
+```python
+import hug
+
+@hug.get(examples='name=Timothy&age=26')
+@hug.local()
+def happy_birthday(name: hug.types.text, age: hug.types.number, hug_timer=3):
+    """Says happy birthday to a user"""
+    return {'message': 'Happy {0} Birthday {1}!'.format(age, name), 'took': float(hug_timer)}
+```
+```bash
+$ hug -f example.py
+```
+-
+#### hug: response
+```bash
+$ curl 'http://localhost:8000/happy_birthday'
+{"errors":
+  {
+    "name": "Required parameter 'name' not supplied",
+     "age": "Required parameter 'age' not supplied"
+  }
+}
+```
+```bash
+$ curl 'http://localhost:8000/happy_birthday?name=Danilo&age=32'
+{"message": "Happy 32 Birthday Danilo!", "took": 0.0}
+```
 ---
 ## scrapy
 
@@ -408,14 +434,36 @@ plt.show()
 #### networkx: example
 ![text](md/image/networkx_example.png)
 ---
-## Blessings, prompt-toolkit
+## prompt-toolkit
 ---
 ## asciimatics
+
+help people create simple ASCII animations on any platform
+
+http://asciimatics.readthedocs.io
+-
+#### asciimatics: Why?
+
+    tyled text - including 256 colour terminals
+    Cursor positioning
+    Keyboard input (without blocking or echoing)
+    Mouse input (terminal permitting)
+    Detecting and handling when the console resizes
+    Screen scraping
+
+In addition, it provides some simple, high-level APIs to provide more complex features including:
+
+    Anti-aliased ASCII line-drawing
+    Image to ASCII conversion - including JPEG and GIF formats
+    Many animation effects - e.g. sprites, particle systems, banners, etc.
+    Various widgets for text UIs - e.g. buttons, text boxes, radio buttons, etc.
 ---
 ## doctest
 https://github.com/marco-buttu/pycon8
 ---
 ## nose
+---
+## SQLAlchemy
 ---
 ## pillow
 ---
@@ -435,3 +483,5 @@ https://speakerdeck.com/andreagrandi/getting-started-with-requests-http-library
 # Thanks
 
 #### danilo@piumalab.org
+
+https://github.com/piuma/pylibs-slide
