@@ -24,7 +24,6 @@ Today i am going to list 20 python libraries which have been a part of
 my toolbelt and should be a part of yours as well.
 -
 ## Why?
-
 ---
 ## arrow
 better dates and times
@@ -505,16 +504,102 @@ In addition, it provides some simple, high-level APIs to provide more complex fe
 
 ---
 ## prettytable
+
+represent tabular data in visually appealing ASCII tables
+
+https://pypi.org/project/PrettyTable/
+-
+#### prettytable: example
+```
+from prettytable import PrettyTable
+x = PrettyTable()
+
+x.set_field_names(["City name", "Area", "Population", "Annual Rainfall"])
+x.add_row(["Adelaide",1295, 1158259, 600.5])
+x.add_row(["Brisbane",5905, 1857594, 1146.4])
+x.add_row(["Darwin", 112, 120900, 1714.7])
+x.add_row(["Hobart", 1357, 205556, 619.5])
+x.add_row(["Sydney", 2058, 4336374, 1214.8])
+x.add_row(["Melbourne", 1566, 3806092, 646.9])
+x.add_row(["Perth", 5386, 1554769, 869.4])
+```
+-
+#### prettytable: print(x)
+```
++-----------+------+------------+-----------------+
+| City name | Area | Population | Annual Rainfall |
++-----------+------+------------+-----------------+
+| Adelaide  | 1295 |  1158259   |      600.5      |
+| Brisbane  | 5905 |  1857594   |      1146.4     |
+| Darwin    | 112  |   120900   |      1714.7     |
+| Hobart    | 1357 |   205556   |      619.5      |
+| Melbourne | 1566 |  3806092   |      646.9      |
+| Perth     | 5386 |  1554769   |      869.4      |
+| Sydney    | 2058 |  4336374   |      1214.8     |
++-----------+------+------------+-----------------+
+```
 ---
 ## wget
 ---
 ## snowballstemmer
 ---
 ## sh
+sh is a full-fledged subprocess replacement that allows you to call
+any program as if it were a function
+
+![text](md/image/sh.png)
+
+https://amoffat.github.io/sh/
+-
+#### sh: example
+```python
+from sh import ifconfig
+print(ifconfig("wlan0"))
+```
+```
+try:
+    sh.ls("/doesnt/exist")
+except sh.ErrorReturnCode_2:
+    print("directory doesn't exist")
+```
+```
+sh.wc(sh.ls("-1"), "-l")
+```
 ---
-## fuzzywuzzy
+## FuzzyWuzzy
+
+Fuzzy string matching like a boss. It uses Levenshtein Distance to
+calculate the differences between sequences in a simple-to-use
+package. 
+
+https://github.com/seatgeek/fuzzywuzzy
+-
+#### FuzzyWuzzy
+```
+>>> from fuzzywuzzy import fuzz
+>>> fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
+    91
+```
 ---
-## progressbar
+## progressbar2
+
+A text progress bar is typically used to display the progress of a
+long running operation, providing a visual cue that processing is
+underway
+
+https://progressbar-2.readthedocs.io/
+-
+#### prograssbar2: example
+```
+import time
+import progressbar
+
+for i in progressbar.progressbar(range(100)):
+    time.sleep(0.02)
+```
+```
+19% (19 of 100) |##           | Elapsed Time: 0:00:00 ETA: 0:00:01
+```
 ---
 ## doctest
 
