@@ -1,5 +1,5 @@
 # PyRoma
-### 20 librerie python di cui non potrai fare a meno
+### come semplificarsi la vita grazie a 25 librerie python
 
 Danilo Abbasciano
 
@@ -25,7 +25,42 @@ my toolbelt and should be a part of yours as well.
 -
 ## Why?
 ---
+## begins
+
+Command line programs for lazy humans
+
+https://pypi.org/project/begins/
+-
+#### begins: example
+```python
+import begin
+
+@begin.start
+def run(name='Arther', quest='Holy Grail', colour='red', *knights):
+    "tis but a scratch!"
+```
+-
+#### begins: example
+```bash
+usage: example.py [-h] [-n NAME] [-q QUEST] [-c COLOUR]
+                  [knights [knights ...]]
+
+tis but a scratch!
+
+positional arguments:
+  knights
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n NAME, --name NAME  (default: Arther)
+  -q QUEST, --quest QUEST
+                        (default: Holy Grail)
+  -c COLOUR, --colour COLOUR
+                        (default: red)
+```
+---
 ## arrow
+
 better dates and times
 
 http://arrow.readthedocs.io/en/latest/
@@ -35,7 +70,7 @@ Python's standard library have near-complete date, time and timezone
 functionality but don't work very well from a usability perspective:
 
  - Too many modules: datetime, time, calendar, dateutil, pytz and more
- - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc.
+ - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc
  - Timezones and timestamp conversions are verbose
 -
 #### arrow: Example
@@ -106,6 +141,7 @@ Customer.select(lambda c: sum(c.orders.price) > 1000)
 ```
 ---
 ## colorama
+
 Makes ANSI escape character sequences for producing colored terminal
 text
 
@@ -126,6 +162,7 @@ print('back to normal now')
 ```
 ---
 ## colorlog
+
 Log formatting with colors
 
 ![text](md/image/colorlog.png)
@@ -133,7 +170,7 @@ Log formatting with colors
 https://pypi.org/project/colorlog/
 -
 #### colorlog: usage
-```
+```python
 import colorlog
 
 handler = colorlog.StreamHandler()
@@ -142,40 +179,6 @@ handler.setFormatter(colorlog.ColoredFormatter(
 
 logger = colorlog.getLogger('example')
 logger.addHandler(handler)
-```
----
-## begins
-
-Command line programs for lazy humans
-
-https://pypi.org/project/begins/
--
-#### begins: example
-```python
-import begin
-
-@begin.start
-def run(name='Arther', quest='Holy Grail', colour='red', *knights):
-    "tis but a scratch!"
-```
--
-#### begins: example
-```bash
-usage: example.py [-h] [-n NAME] [-q QUEST] [-c COLOUR]
-                  [knights [knights ...]]
-
-tis but a scratch!
-
-positional arguments:
-  knights
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -n NAME, --name NAME  (default: Arther)
-  -q QUEST, --quest QUEST
-                        (default: Holy Grail)
-  -c COLOUR, --colour COLOUR
-                        (default: red)
 ```
 ---
 ## pywebview
@@ -187,6 +190,7 @@ lightweight cross-platform wrapper around webview
 https://github.com/r0x0r/pywebview
 -
 #### pywebview
+
 allows to display HTML content in its own native GUI
 window.
 
@@ -196,6 +200,7 @@ application, hiding the fact that GUI is browser based.
 ![text](md/image/pywebview_example.png)
 ---
 ## bokeh
+
 is an interactive visualization library that targets modern web
 browsers for presentation
 
@@ -256,7 +261,7 @@ It is useful mainly for system monitoring, profiling and limiting
 process resources and management of running processes.
 -
 #### psutil: example
-```
+```python
 >>> import psutil
 >>> psutil.cpu_count()
 4
@@ -269,7 +274,7 @@ process resources and management of running processes.
 ```
 -
 #### psutil: example
-```
+```python
 >>> psutil.disk_usage('/')
 sdiskusage(total=52576092160, used=44855128064, free=5019832320, percent=89.9)
 
@@ -330,7 +335,7 @@ In a fast, simple, yet extensible way.
 https://scrapy.org/
 -
 #### scrapy: example
-```
+```python
 import scrapy
 
 class BlogSpider(scrapy.Spider):
@@ -346,21 +351,21 @@ class BlogSpider(scrapy.Spider):
 ```
 -
 #### scrapy: selectors
-```
+```python
 >>> from scrapy.selector import Selector
 >>> from scrapy.http import HtmlResponse
 ```
-```
+```python
 >>> body = '<html><body><span>good</span></body></html>'
 >>> Selector(text=body).xpath('//span/text()').extract()
 [u'good']
 ```
-```
+```python
 >>> response = HtmlResponse(url='http://example.com', body=body)
 >>> Selector(response=response).xpath('//span/text()').extract()
 [u'good']
 ```
-```
+```python
 >>> response.selector.xpath('//span/text()').extract()
 [u'good']
 ```
@@ -378,6 +383,30 @@ https://github.com/unbit/pysftpserver
  * Compatible with both Python 2 and Python 3
  * Fully extensible and customizable (examples below)
  * Totally conforms to the SFTP RFC
+---
+## sh
+
+sh is a full-fledged subprocess replacement that allows you to call
+any program as if it were a function
+
+![text](md/image/sh.png)
+
+https://amoffat.github.io/sh/
+-
+#### sh: example
+```python
+from sh import ifconfig
+print(ifconfig("wlan0"))
+```
+```python
+try:
+    sh.ls("/doesnt/exist")
+except sh.ErrorReturnCode_2:
+    print("directory doesn't exist")
+```
+```python
+sh.wc(sh.ls("-1"), "-l")
+```
 ---
 ## lxml
 
@@ -477,6 +506,40 @@ plt.show()
 ![text](md/image/networkx_example.png)
 ---
 ## prompt-toolkit
+
+building powerful interactive command lines and terminal applications
+
+https://python-prompt-toolkit.readthedocs.io
+-
+#### prompt-toolkit: features
+ - Syntax highlighting
+ - Multi-line input editing
+ - Advanced code completion
+ - Selecting text for copy/paste. (Both Emacs and Vi style)
+ - Mouse support for cursor positioning and scrolling
+ - Auto suggestions. (Like fish shell)
+-
+#### prompt-toolkit: example
+```python
+from __future__ import unicode_literals
+from prompt_toolkit import prompt
+
+text = prompt('Give me some input: ')
+print('You said: %s' % text)
+```
+-
+#### prompt-toolkit: autocompletion example
+```python
+from prompt_toolkit import prompt
+from prompt_toolkit.contrib.completers import WordCompleter
+
+html_completer = WordCompleter(['<html>', '<body>', '<head>', '<title>'])
+text = prompt('Enter HTML: ', completer=html_completer)
+print('You said: %s' % text)
+```
+-
+#### prompt-toolkit: autocompletion
+![text](md/image/prompt-toolkit_example.png)
 ---
 ## asciimatics
 
@@ -510,7 +573,7 @@ represent tabular data in visually appealing ASCII tables
 https://pypi.org/project/PrettyTable/
 -
 #### prettytable: example
-```
+```python
 from prettytable import PrettyTable
 x = PrettyTable()
 
@@ -525,7 +588,7 @@ x.add_row(["Perth", 5386, 1554769, 869.4])
 ```
 -
 #### prettytable: print(x)
-```
+```text
 +-----------+------+------------+-----------------+
 | City name | Area | Population | Annual Rainfall |
 +-----------+------+------------+-----------------+
@@ -540,31 +603,30 @@ x.add_row(["Perth", 5386, 1554769, 869.4])
 ```
 ---
 ## wget
+
+download utility as an easy way to get file from the net
+
+https://pypi.org/project/wget/
+-
+#### wget: usage
+```bash
+ python -m wget [options] <URL>
+
+ options:
+     -o --output FILE|DIR output filename or directory
+```
+-
+#### wget: example
+```python
+>>> import wget
+>>> url = 'http://www.futurecrew.com/skaven/song_files/mp3/razorback.mp3'
+>>> filename = wget.download(url)
+100% [................................................] 3841532 / 3841532>
+>> filename
+'razorback.mp3'
+```
 ---
 ## snowballstemmer
----
-## sh
-sh is a full-fledged subprocess replacement that allows you to call
-any program as if it were a function
-
-![text](md/image/sh.png)
-
-https://amoffat.github.io/sh/
--
-#### sh: example
-```python
-from sh import ifconfig
-print(ifconfig("wlan0"))
-```
-```
-try:
-    sh.ls("/doesnt/exist")
-except sh.ErrorReturnCode_2:
-    print("directory doesn't exist")
-```
-```
-sh.wc(sh.ls("-1"), "-l")
-```
 ---
 ## FuzzyWuzzy
 
@@ -575,7 +637,7 @@ package.
 https://github.com/seatgeek/fuzzywuzzy
 -
 #### FuzzyWuzzy
-```
+```python
 >>> from fuzzywuzzy import fuzz
 >>> fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
     91
@@ -590,7 +652,7 @@ underway
 https://progressbar-2.readthedocs.io/
 -
 #### prograssbar2: example
-```
+```python
 import time
 import progressbar
 
@@ -614,7 +676,7 @@ https://docs.python.org/2/library/doctest.html
 import doctest
 doctest.testfile("example.txt")
 ```
-```python
+```
 The ``example`` module
 ======================
 
@@ -643,12 +705,6 @@ Got:
     720
 ```
 ---
-## nose
-
-nose extends unittest to make testing easier
-
-http://nose.readthedocs.io/
----
 ## pillow
 
 friendly PIL (Python Imaging Library) fork
@@ -656,7 +712,7 @@ friendly PIL (Python Imaging Library) fork
 https://pillow.readthedocs.io/
 -
 #### pillow: creating thumbnails
-```
+```python
 from PIL import Image
 
 size = (128, 128)
@@ -686,8 +742,8 @@ HTTP Requests easily
 
 https://github.com/kennethreitz/grequests
 -
-#### grequests
-```
+#### grequests: example
+```python
 import grequests
 urls = [
     'http://www.piumalab.org',
@@ -701,6 +757,8 @@ rs = (grequests.get(u) for u in urls)
 # Send them all at the same time:
 grequests.map(rs)
 ```
+---
+## behave
 ---
 ## sched
 
