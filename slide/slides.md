@@ -1,5 +1,5 @@
 # PyRoma
-### come semplificarsi la vita grazie a 25 librerie python
+### come semplificarci la vita grazie a 25 librerie python
 
 Danilo Abbasciano
 
@@ -11,7 +11,7 @@ def my(self):
     """
     Senior System Engineer.
 
-    Managing large infrastructure,
+    More than 10 years in managing large infrastructure,
     coding in several languages but loves writing in Python.
 
     I try to optimize the world!
@@ -20,7 +20,7 @@ def my(self):
 ```
 -
 ## What?
-Today i am going to list 20 python libraries which have been a part of
+Today i am going to list 25 python libraries which have been a part of
 my toolbelt and should be a part of yours as well.
 -
 ## Why?
@@ -533,7 +533,9 @@ print('You said: %s' % text)
 from prompt_toolkit import prompt
 from prompt_toolkit.contrib.completers import WordCompleter
 
-html_completer = WordCompleter(['<html>', '<body>', '<head>', '<title>'])
+items = ['<html>', '<body>', '<head>', '<title>']
+html_completer = WordCompleter(items)
+
 text = prompt('Enter HTML: ', completer=html_completer)
 print('You said: %s' % text)
 ```
@@ -549,14 +551,15 @@ http://asciimatics.readthedocs.io
 -
 #### asciimatics: Why?
 
- - tyled text - including 256 colour terminals
+ - 256 colour terminals
  - Cursor positioning
  - Keyboard input (without blocking or echoing)
- - Mouse input (terminal permitting)
+ - Mouse input
  - Detecting and handling when the console resizes
  - Screen scraping
-
-In addition, it provides some simple, high-level APIs to provide more complex features including:
+-
+#### asciimatics: Why?
+In addition, it provides more complex features including:
 
  - Anti-aliased ASCII line-drawing
  - Image to ASCII conversion - including JPEG and GIF formats
@@ -564,7 +567,27 @@ In addition, it provides some simple, high-level APIs to provide more complex fe
  - Various widgets for text UIs - e.g. buttons, text boxes, radio
  - buttons, etc.
 -
+#### asciimatics: example
+```python
+def demo(screen):
+    effects = [
+        Cycle(
+            screen,
+            FigletText("ASCIIMATICS", font='big'),
+            screen.height // 2 - 8),
+        Cycle(
+            screen,
+            FigletText("ROCKS!", font='big'),
+            screen.height // 2 + 3),
+        Stars(screen, (screen.width + screen.height) // 2)
+    ]
+    screen.play([Scene(effects, 500)])
 
+Screen.wrapper(demo)
+```
+-
+#### asciimatics: example
+![text](md/image/asciimatics_example.png)
 ---
 ## prettytable
 
@@ -608,14 +631,6 @@ download utility as an easy way to get file from the net
 
 https://pypi.org/project/wget/
 -
-#### wget: usage
-```bash
- python -m wget [options] <URL>
-
- options:
-     -o --output FILE|DIR output filename or directory
-```
--
 #### wget: example
 ```python
 >>> import wget
@@ -625,8 +640,14 @@ https://pypi.org/project/wget/
 >> filename
 'razorback.mp3'
 ```
----
-## snowballstemmer
+-
+#### wget: usage
+```bash
+ python -m wget [options] <URL>
+
+ options:
+     -o --output FILE|DIR output filename or directory
+```
 ---
 ## FuzzyWuzzy
 
@@ -636,7 +657,7 @@ package.
 
 https://github.com/seatgeek/fuzzywuzzy
 -
-#### FuzzyWuzzy
+#### FuzzyWuzzy: example
 ```python
 >>> from fuzzywuzzy import fuzz
 >>> fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
@@ -727,14 +748,6 @@ im.save("image.jpeg")
 im.show()
 ```
 ---
-## pytest-play
-
-is a pytest plugin that let you play a json file
-containing previously recorded selenium splinter actions driving your
-browser for your UI test.
-
-https://github.com/davidemoro/pytest-play
----
 ## grequests
 
 GRequests allows you to use Requests with Gevent to make asynchronous
@@ -759,6 +772,55 @@ grequests.map(rs)
 ```
 ---
 ## behave
+
+uses tests written in a natural language style, backed up by Python
+code
+
+![text](md/image/behave.png)
+
+https://behave.readthedocs.io/en/latest/
+-
+#### behave: tutorial.feature
+```gherkin
+Feature: showing off behave
+
+  Scenario: run a simple test
+     Given we have behave installed
+      When we implement a test
+      Then behave will test it for us!
+```
+-
+#### behave: tutorial.py
+```python
+from behave import *
+
+@given('we have behave installed')
+def step_impl(context):
+    pass
+
+@when('we implement a test')
+def step_impl(context):
+    assert True is not False
+
+@then('behave will test it for us!')
+def step_impl(context):
+    assert context.failed is False
+```
+-
+#### behave: run
+```bash
+$ behave
+Feature: showing off behave # features/tutorial.feature:1
+
+  Scenario: run a simple test        # features/tutorial.feature:3
+    Given we have behave installed   # features/steps/tutorial.py:3
+    When we implement a test         # features/steps/tutorial.py:7
+    Then behave will test it for us! # features/steps/tutorial.py:11
+
+1 feature passed, 0 failed, 0 skipped
+1 scenario passed, 0 failed, 0 skipped
+3 steps passed, 0 failed, 0 skipped, 0 undefined
+```
 ---
 ## sched
 
