@@ -16,9 +16,8 @@ programmatori!
 git clone https://github.com/piuma/pylibs-slide.git
 
 # Run docker container https://github.com/piuma/md-slide
-
 docker run --rm -p 8000:8000 -p 35729:35729 \
   -v "$PWD/pylibs-slide":/reveal.js/md piuma/md-slide
   
 ```
-Open browser at url http://localhost:8000
+Then open browser at url http://localhost:8000
