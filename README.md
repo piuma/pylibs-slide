@@ -9,18 +9,16 @@ ognuna di esse facendone risaltare i benefici e le principali
 funzionalità. Il nostro unico scopo? Semplificarci la vita da
 programmatori!
 
-#### Show slide
+#### How to show slides
 
 ```bash
 # Pull repos
 git clone https://github.com/piuma/pylibs-slide.git
 
-cd pylibs-slide
-
 # Run docker container https://github.com/piuma/md-slide
 
 docker run --rm -p 8000:8000 -p 35729:35729 \
-  -v "$PWD/slide":/reveal.js/md piuma/md-slide
-
-# Open browser at url http://localhost:8000
+  -v "$PWD/pylibs-slide":/reveal.js/md piuma/md-slide
+  
 ```
+Open browser at url http://localhost:8000
