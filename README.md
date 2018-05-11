@@ -11,7 +11,6 @@ programmatori!
 
 #### Show slide
 
-1. Pull repos
 ```bash
 # Pull repos
 git clone https://github.com/piuma/pylibs-slide.git
