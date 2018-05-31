@@ -851,6 +851,8 @@ From print_time 930343700.273 default
 ---
 # Thanks
 
-#### danilo@piumalab.org
-
 https://github.com/piuma/pylibs-slide
+
+https://hub.docker.com/r/piuma/md-slide
+
+__danilo@piumalab.org__
