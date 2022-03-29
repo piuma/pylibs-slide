@@ -1,13 +1,16 @@
-### Come semplificarci la vita grazie a 25 librerie python
+### Viaggio nel mondo delle librerie python
+
+#### Elevator pitch
+
+25 utili librerie in 30 minuti
 
 #### Descrizione
 
-Attraverso un affascinate viaggio tra le librerie python, toccheremo
-rapidamente le librerie più utili e semplici da utilizzare che faranno
-risparmiare tempo e linee di codice. Faremo una rapida presentazione per
+Attraverso un affascinate viaggio tra le librerie python, tratteremo
+rapidamente quelle più utili e semplici da utilizzare che ci faranno
+risparmiare tempo e linee di codice. Farò una rapida presentazione per
 ognuna di esse facendone risaltare i benefici e le principali
-funzionalità. Il nostro unico scopo? Semplificarci la vita da
-programmatori!
+funzionalità. Da non perdere!
 
 #### How to show slides
 

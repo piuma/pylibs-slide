@@ -1,9 +1,9 @@
-# PyRoma
-### come semplificarci la vita grazie a 25 librerie python
+# PyCon 22
+### Viaggio nel mondo delle librerie python
 
 Danilo Abbasciano
 
-danilo@piumalab.org
+danilo.abbasciano@par-tec.it
 -
 ## Who?
 ```python
@@ -855,4 +855,4 @@ https://github.com/piuma/pylibs-slide
 
 https://hub.docker.com/r/piuma/md-slide
 
-__danilo@piumalab.org__
+__danilo.abbasciano@par-tec.it__
