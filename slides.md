@@ -379,20 +379,6 @@ class BlogSpider(scrapy.Spider):
 [u'good']
 ```
 ---
-## pysftpserver
-
-pysftpserver An OpenSSH SFTP wrapper
-
-https://github.com/unbit/pysftpserver
--
-#### pysftpserver: Features
-
- * Possibility to automatically jail users in a virtual chroot environment as soon as they login
- * Possibility to automatically forward SFTP requests to another server
- * Compatible with both Python 2 and Python 3
- * Fully extensible and customizable (examples below)
- * Totally conforms to the SFTP RFC
----
 ## sh
 
 sh is a full-fledged subprocess replacement that allows you to call
