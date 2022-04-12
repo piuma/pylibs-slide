@@ -25,38 +25,47 @@ my toolbelt and should be a part of yours as well.
 -
 ## Why?
 ---
-## begins
+## click
 
-Command line programs for lazy humans
+Command Line Interface Creation Kit
 
-https://pypi.org/project/begins/
+https://click.palletsprojects.com
+
+Note: Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary.
+Click in three points:
+ * Arbitrary nesting of commands
+ * Automatic help page generation
+ * Supports lazy loading of subcommands at runtime
+
 -
-#### begins: example
+#### click: example
 ```python
-import begin
+import click
 
-@begin.start
-def run(name='Arther', quest='Holy Grail', colour='red', *knights):
-    "tis but a scratch!"
+@click.command()
+@click.option("--count", default=1, help="Number of greetings.")
+@click.option("--name", prompt="Your name",
+              help="The person to greet.")
+
+def hello(count, name):
+    for _ in range(count):
+        click.echo("Hello, %s!" % name)
+
+if __name__ == '__main__':
+    hello()
 ```
 -
-#### begins: example
+#### click: example
 ```bash
-usage: example.py [-h] [-n NAME] [-q QUEST] [-c COLOUR]
-                  [knights [knights ...]]
+$ python hello.py --help
+Usage: hello.py [OPTIONS]
 
-tis but a scratch!
+  Simple program that greets NAME for a total of COUNT times.
 
-positional arguments:
-  knights
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -n NAME, --name NAME  (default: Arther)
-  -q QUEST, --quest QUEST
-                        (default: Holy Grail)
-  -c COLOUR, --colour COLOUR
-                        (default: red)
+Options:
+  --count INTEGER  Number of greetings.
+  --name TEXT      The person to greet.
+  --help           Show this message and exit.
 ```
 ---
 ## arrow
