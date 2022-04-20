@@ -119,36 +119,6 @@ functionality but don't work very well from a usability perspective:
 '1시간 전'
 ```
 ---
-## Pony
-
-Write SQL queries using Python generators & lambdas
-
-![text](md/image/pony.jpg)
-
-https://ponyorm.com/
--
-#### pony: example
-```python
-select(c for c in Customer if sum(c.orders.price) > 1000)
-```
-```sql
-SELECT "c"."id"
-FROM "customer" "c"
-  LEFT JOIN "order" "order-1"
-    ON "c"."id" = "order-1"."customer"
-GROUP BY "c"."id"
-HAVING coalesce(SUM("order-1"."total_price"), 0) > 1000
-```
--
-#### pony: example 2
-```python
-select(c for c in Customer if sum(c.orders.price) > 1000)
-```
-Here is the same query written using the lambda function:
-```python
-Customer.select(lambda c: sum(c.orders.price) > 1000)
-```
----
 ## colorama
 
 Makes ANSI escape character sequences for producing colored terminal
@@ -189,24 +159,6 @@ handler.setFormatter(colorlog.ColoredFormatter(
 logger = colorlog.getLogger('example')
 logger.addHandler(handler)
 ```
----
-## pywebview
-
-lightweight cross-platform wrapper around webview
-
-![text](md/image/pywebview.png)
-
-https://github.com/r0x0r/pywebview
--
-#### pywebview
-
-allows to display HTML content in its own native GUI
-window.
-
-It gives you power of web technologies in your desktop
-application, hiding the fact that GUI is browser based.
--
-![text](md/image/pywebview_example.png)
 ---
 ## bokeh
 
@@ -403,64 +355,90 @@ except sh.ErrorReturnCode_2:
 sh.wc(sh.ls("-1"), "-l")
 ```
 ---
-## lxml
+## ntfy
+brings notification to your shell
 
-it's the most feature-rich and easy-to-use library for processing XML
-and HTML
+![text](md/image/ntfy.png)
 
-![text](md/image/lxml.png)
+https://ntfy.readthedocs.io/en/latest/
 
-http://lxml.de/
-
+Text: It can automatically provide desktop notifications when long running commands finish or it can send push notifications to your phone when a specific command finishes.
 -
-#### lxml: Why?
-
- * Pythonic API
- * Documented
- * Use Python unicode strings in API
- * Safe (no segfaults)
- * No manual memory management
----
-## jsonschema
-
-an implementation of JSON Schema
-
-https://python-jsonschema.readthedocs.io
--
-#### jsonschema: example
+#### ntfy: example
 ```python
->>> from jsonschema import validate
+$ ntfy send test
 
->>> # A sample schema, like what we'd get from json.load()
->>> schema = {
-...     "type" : "object",
-...     "properties" : {
-...         "price" : {"type" : "number"},
-...         "name" : {"type" : "string"},
-...     },
-... }
+# send a notification when the command `sleep 10` finishes
+# this sends the message '"sleep 10" succeeded in 0:10 minutes'
+$ ntfy done sleep 10
 
->>> # If no exception is raised the instance is valid.
->>> validate({"name" : "Eggs", "price" : 34.99}, schema)
+$ ntfy -b linux send "Linux Desktop Notifications!"
+```
+---
+## pydantic
+Data validation and settings management using python type annotations
+
+
+https://pydantic-docs.helpmanual.io/
+-
+#### pydantic: example
+```python
+from datetime import datetime
+from typing import List, Optional
+from pydantic import BaseModel
+
+
+class User(BaseModel):
+    id: int
+    name = 'John Doe'
+    signup_ts: Optional[datetime] = None
+    friends: List[int] = []
+
+
+external_data = {
+    'id': '123',
+    'signup_ts': '2019-06-01 12:22',
+    'friends': [1, 2, '3'],
+}
+
 ```
 -
-#### jsonschema: example
+#### pydantic: example
 ```python
->>> from jsonschema import validate
+from pydantic import ValidationError
 
->>> # A sample schema, like what we'd get from json.load()
->>> schema = {
-...     "type" : "object",
-...     "properties" : {
-...         "price" : {"type" : "number"},
-...         "name" : {"type" : "string"},
-...     },
-... }
-
->>> validate({"name" : "Eggs", "price" : "Invalid"}, schema)
-Traceback (most recent call last):
-    ...
-ValidationError: 'Invalid' is not of type 'number'
+try:
+    User(signup_ts='broken', friends=[1, 2, 'not number'])
+except ValidationError as e:
+    print(e.json())
+```
+-
+#### pydantic: example
+```
+[
+  {
+    "loc": [
+      "id"
+    ],
+    "msg": "field required",
+    "type": "value_error.missing"
+  },
+  {
+    "loc": [
+      "signup_ts"
+    ],
+    "msg": "invalid datetime format",
+    "type": "value_error.datetime"
+  },
+  {
+    "loc": [
+      "friends",
+      2
+    ],
+    "msg": "value is not a valid integer",
+    "type": "type_error.integer"
+  }
+]
 ```
 ---
 ## networkx
@@ -526,7 +504,7 @@ print('You said: %s' % text)
 #### prompt-toolkit: autocompletion example
 ```python
 from prompt_toolkit import prompt
-from prompt_toolkit.contrib.completers import WordCompleter
+from prompt_toolkit.completion import WordCompleter
 
 items = ['<html>', '<body>', '<head>', '<title>']
 html_completer = WordCompleter(items)
@@ -564,6 +542,11 @@ In addition, it provides more complex features including:
 -
 #### asciimatics: example
 ```python
+from asciimatics.screen import Screen
+from asciimatics.scene import Scene
+from asciimatics.effects import Cycle, Stars
+from asciimatics.renderers import FigletText
+
 def demo(screen):
     effects = [
         Cycle(
@@ -595,7 +578,7 @@ https://pypi.org/project/PrettyTable/
 from prettytable import PrettyTable
 x = PrettyTable()
 
-x.set_field_names(["City name", "Area", "Population", "Annual Rainfall"])
+x.field_names(["City name", "Area", "Population", "Annual Rainfall"])
 x.add_row(["Adelaide",1295, 1158259, 600.5])
 x.add_row(["Brisbane",5905, 1857594, 1146.4])
 x.add_row(["Darwin", 112, 120900, 1714.7])
@@ -620,41 +603,17 @@ x.add_row(["Perth", 5386, 1554769, 869.4])
 +-----------+------+------------+-----------------+
 ```
 ---
-## wget
-
-download utility as an easy way to get file from the net
-
-https://pypi.org/project/wget/
--
-#### wget: example
-```python
->>> import wget
->>> url = 'http://www.futurecrew.com/skaven/song_files/mp3/razorback.mp3'
->>> filename = wget.download(url)
-100% [................................................] 3841532 / 3841532>
->> filename
-'razorback.mp3'
-```
--
-#### wget: usage
-```bash
- python -m wget [options] <URL>
-
- options:
-     -o --output FILE|DIR output filename or directory
-```
----
-## FuzzyWuzzy
+## TheFuzz
 
 Fuzzy string matching like a boss. It uses Levenshtein Distance to
 calculate the differences between sequences in a simple-to-use
 package. 
 
-https://github.com/seatgeek/fuzzywuzzy
+https://github.com/seatgeek/thefuzz
 -
-#### FuzzyWuzzy: example
+#### theFuzz: example
 ```python
->>> from fuzzywuzzy import fuzz
+>>> from thefuzz import fuzz
 >>> fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
     91
 ```
@@ -667,7 +626,7 @@ underway
 
 https://progressbar-2.readthedocs.io/
 -
-#### prograssbar2: example
+#### progressbar2: example
 ```python
 import time
 import progressbar
@@ -685,7 +644,7 @@ searches for pieces of text that look like interactive Python
 sessions, and then executes those sessions to verify that they work
 exactly as shown
 
-https://docs.python.org/2/library/doctest.html
+https://docs.python.org/3/library/doctest.html
 -
 #### doctest: example
 ```python
@@ -842,6 +801,36 @@ https://docs.python.org/3/library/sched.html
 From print_time 930343695.274 positional
 From print_time 930343695.275 keyword
 From print_time 930343700.273 default
+```
+---
+## Pony
+
+Write SQL queries using Python generators & lambdas
+
+![text](md/image/pony.jpg)
+
+https://ponyorm.com/
+-
+#### pony: example
+```python
+select(c for c in Customer if sum(c.orders.price) > 1000)
+```
+```sql
+SELECT "c"."id"
+FROM "customer" "c"
+  LEFT JOIN "order" "order-1"
+    ON "c"."id" = "order-1"."customer"
+GROUP BY "c"."id"
+HAVING coalesce(SUM("order-1"."total_price"), 0) > 1000
+```
+-
+#### pony: example 2
+```python
+select(c for c in Customer if sum(c.orders.price) > 1000)
+```
+Here is the same query written using the lambda function:
+```python
+Customer.select(lambda c: sum(c.orders.price) > 1000)
 ```
 ---
 # Thanks
