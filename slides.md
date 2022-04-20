@@ -362,7 +362,7 @@ brings notification to your shell
 
 https://ntfy.readthedocs.io/en/latest/
 
-Text: It can automatically provide desktop notifications when long running commands finish or it can send push notifications to your phone when a specific command finishes.
+Note: It can automatically provide desktop notifications when long running commands finish or it can send push notifications to your phone when a specific command finishes.
 -
 #### ntfy: example
 ```python
@@ -387,20 +387,17 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
 
-
 class User(BaseModel):
     id: int
     name = 'John Doe'
     signup_ts: Optional[datetime] = None
     friends: List[int] = []
 
-
 external_data = {
     'id': '123',
     'signup_ts': '2019-06-01 12:22',
     'friends': [1, 2, '3'],
 }
-
 ```
 -
 #### pydantic: example
@@ -415,26 +412,18 @@ except ValidationError as e:
 -
 #### pydantic: example
 ```
-[
-  {
-    "loc": [
-      "id"
-    ],
+[{
+    "loc": ["id"],
     "msg": "field required",
     "type": "value_error.missing"
   },
   {
-    "loc": [
-      "signup_ts"
-    ],
+    "loc": ["signup_ts"],
     "msg": "invalid datetime format",
     "type": "value_error.datetime"
   },
   {
-    "loc": [
-      "friends",
-      2
-    ],
+    "loc": ["friends", 2],
     "msg": "value is not a valid integer",
     "type": "type_error.integer"
   }
