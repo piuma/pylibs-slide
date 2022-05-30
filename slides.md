@@ -1,29 +1,30 @@
-# PyCon 22
+![text](md/image/pyconit.png)
 ### Viaggio nel mondo delle librerie python
 
 Danilo Abbasciano
 
-danilo.abbasciano@par-tec.it
--
-## Who?
-```python
-def my(self):
-    """
-    Senior System Engineer.
-
-    More than 10 years in managing large infrastructure,
-    coding in several languages but loves writing in Python.
-
-    I try to optimize the world!
-    """
-    pass
-```
+_danilo.abbasciano@par-tec.it_
 -
 ## What?
 Today i am going to list 25 python libraries which have been a part of
 my toolbelt and should be a part of yours as well.
+
+Note: Cosa vedremo oggi? Vi illustrerò 25 librerie che fanno parte
+della mia cassetta di attrezzi e che spero entrino a far parte anche
+della vostra.
+
+Per ognuna di esse ci sara` una slide di presentazione con nome,
+payoff, logo e link al sito. Poi vedremo dei piccoli esempi di
+utilizzo.
+
 -
 ## Why?
+Note: Perche'?
+devo ringraziare il mio collega Roberto Polli per avermi spinto a
+presentare il talk e devo ringraziare anche voi per averlo votato.
+
+Iniziamo subito con la prima libreria
+
 ---
 ## click
 
@@ -31,11 +32,15 @@ Command Line Interface Creation Kit
 
 https://click.palletsprojects.com
 
-Note: Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary.
-Click in three points:
- * Arbitrary nesting of commands
- * Automatic help page generation
- * Supports lazy loading of subcommands at runtime
+Note: Click è un package per la creazione di command line interfaces
+in modo elegante e con pochissime righe di codice.
+Le sue principali caratteristiche sono:
+ * supporto dei sottocomandi
+ * generazione automatica dell'help
+ * tutto sulle opzioni:
+   - default
+   - tipo
+   - descrizione
 
 -
 #### click: example
@@ -48,6 +53,7 @@ import click
               help="The person to greet.")
 
 def hello(count, name):
+    "Simple program that greets NAME for a total of COUNT times."
     for _ in range(count):
         click.echo("Hello, %s!" % name)
 
@@ -73,33 +79,54 @@ Options:
 better dates and times
 
 http://arrow.readthedocs.io/en/latest/
+
+Note:
+è una libreria che offre un approccio logico e di facile utilizzo per
+creare, manipolare, formattare e convertire date, orari e timestamp.
+Estende il tipo datetime per colmare alcune lacune di
+funzionamento. Vi aiuta a lavorare con date e orari usando meno
+importazioni e codice piú pulito.
+
 -
 #### arrow: Why?
+
 Python's standard library have near-complete date, time and timezone
 functionality but don't work very well from a usability perspective:
 
  - Too many modules: datetime, time, calendar, dateutil, pytz and more
  - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc
  - Timezones and timestamp conversions are verbose
+Note:
+La libreria stadard ha la gestione di data, ora e timezone quasi
+completa ma non funzionano molto bene dal punto di vista
+dell'usabilità:
+ - Troppi moduli: datetime, time, calendar, dateutil, pytz and more
+ - Troppi tipi: date, time, datetime, tzinfo, timedelta, relativedelta, etc
+ - La conversione tra fuiorari e timezones è verbosa
 -
 #### arrow: Example
 ```python
 >>> import arrow
 >>> utc = arrow.utcnow()
 >>> utc
-<Arrow [2013-05-11T21:23:58.970460+00:00]>
+<Arrow [2022-05-11T21:23:58.970460+00:00]>
 
 >>> utc = utc.shift(hours=-1)
 >>> utc
-<Arrow [2013-05-11T20:23:58.970460+00:00]>
+<Arrow [2022-05-11T20:23:58.970460+00:00]>
 
->>> local = utc.to('US/Pacific')
->>> local
-<Arrow [2013-05-11T13:23:58.970460-07:00]>
+>>> utc.to('US/Pacific')
+<Arrow [2022-05-11T13:23:58.970460-07:00]>
 
 >>> arrow.get('2013-05-11T21:23:58.970460+00:00')
-<Arrow [2013-05-11T21:23:58.970460+00:00]>
+<Arrow [2022-05-11T21:23:58.970460+00:00]>
 ```
+Note:
+arrow.now()
+arrow.now( passando la zona )
+arrow.shift() si può schiftare indietro o avanti
+arrow.get() permette la creazione da timezone o parsando una stringa
+
 -
 #### arrow: Example 2
 ```python
@@ -107,10 +134,10 @@ functionality but don't work very well from a usability perspective:
 1368303838
 
 >>> local.format()
-'2013-05-11 13:23:58 -07:00'
+'2022-05-11 13:23:58 -07:00'
 
 >>> local.format('YYYY-MM-DD HH:mm:ss ZZ')
-'2013-05-11 13:23:58 -07:00'
+'2022-05-11 13:23:58 -07:00'
 
 >>> local.humanize()
 'an hour ago'
@@ -118,6 +145,8 @@ functionality but don't work very well from a usability perspective:
 >>> local.humanize(locale='ko_kr')
 '1시간 전'
 ```
+Note:
+esiste anche dehumanize, se ad esempio gli passi "2 giorni fa"
 ---
 ## colorama
 
@@ -127,6 +156,18 @@ text
 ![text](md/image/colorama.png)
 
 https://pypi.org/project/colorama/
+Note:
+Le sequenze di caratteri di escape ANSI sono utilizzate
+per produrre testo colorato nel terminale e posizionare il cursore su
+Linux e Mac.
+
+Colorama fa funzionare questa modalità anche su Windows perché
+converte le sequenze ASCII con chiamate win32.
+
+Le applicazioni esistenti che utilizzano sequenze ASCII per produrre
+output colorato su Linux e Mac semplicemente invocando colorama.init()
+possono funzionare anche su Windows
+
 -
 #### colorama: example
 ```python
@@ -139,26 +180,56 @@ print(Style.DIM + 'and in dim text')
 print(Style.RESET_ALL)
 print('back to normal now')
 ```
+Note:
+In Windows la chiamata init() filtra le sequenze di escape ANSI per
+tutto lo stdout e stderr e lo sostituisce con la chiamta
+Win32 equivalente. Per le altre piattaforme init() non ha nessun
+effetto.
+
 ---
-## colorlog
+## structlog
 
-Log formatting with colors
+Makes logging faster, less painful, and more powerful by
+adding structure to your log entries.
 
-![text](md/image/colorlog.png)
+![text](md/image/structlog.png)
 
-https://pypi.org/project/colorlog/
+https://www.structlog.org/en/stable/
+
+Note:
+Usato in produzione dal 2013. Abbraccia tecnologie moderne come
+asyncio. Flessibile.
+
 -
-#### colorlog: usage
+#### structlog: usage
 ```python
-import colorlog
+>>> import structlog
 
-handler = colorlog.StreamHandler()
-handler.setFormatter(colorlog.ColoredFormatter(
-	'%(log_color)s%(levelname)s:%(name)s:%(message)s'))
+>>> log = structlog.get_logger()
 
-logger = colorlog.getLogger('example')
-logger.addHandler(handler)
+>>> log.msg("greeted", whom="world", more_than_a_string=[1, 2, 3])  
+2016-09-17 10:13.45 greeted                        more_than_a_string=[1, 2, 3] whom='world'
 ```
+Note:
+Poiché i log sono dizionari, è possibile associare delle coppie
+chiave/valore al tuo logger, queste saranno presenti in ogni
+successiva stampa del log
+
+log = log.bind(user="hynek", another_key=42)
+
+-
+#### structlog: usage
+```python
+>>> structlog.configure(processors=[structlog.processors.JSONRenderer()])
+
+>>> structlog.get_logger().msg("hi")
+{"event": "hi"}
+```
+Note:
+Se volessi l'output in formato JSON per invialelo ad un sistema di
+aggregazione di log come ELK o Graylog, devi solo dirgli di usare il
+suo JSONRenderer
+
 ---
 ## bokeh
 
@@ -168,15 +239,29 @@ browsers for presentation
 ![text](md/image/bokeh.png)
 
 https://bokeh.pydata.org/en/latest/
+Note:
+Ti aiuta a creare una grafica meravigliosa, che va da grafici semplici
+a dashboard complessi con set di dati in streaming. Con Bokeh, puoi
+creare visualizzazioni basate su JavaScript senza scrivere
+personalmente JavaScript.
+
 -
 #### bokeh
-Its goal is to provide elegant, concise
-construction of versatile graphics, and to extend this capability with
-high-performance interactivity over very large or streaming
-datasets.
+Its goal is to provide elegant, concise construction of versatile
+graphics, and to extend this capability with high-performance
+interactivity over very large or streaming datasets.
 
 Bokeh can help anyone who would like to quickly and easily
 create interactive plots, dashboards, and data applications.
+
+Note:
+Il suo obiettivo è fornire una costruzione elegante e concisa di
+grafica versatile ed estendere questa capacità con interattività ad
+alte prestazioni su set di dati molto grandi o in streaming.
+
+Bokeh può aiutare chiunque desideri creare rapidamente e facilmente
+grafici interattivi, dashboard e applicazioni dati.
+
 -
 #### bokeh: example
 ```python
@@ -209,9 +294,11 @@ show(p) # open a browser
 ---
 ## psutil
 
-Cross-platform lib for process and system monitoring
+Cross-platform lib for retrieving information on process and system
+monitoring
 
 https://github.com/giampaolo/psutil
+
 -
 #### psutil
 psutil (process and system utilities) is a cross-platform library for
@@ -220,6 +307,17 @@ retrieving information on running processes and system utilization
 
 It is useful mainly for system monitoring, profiling and limiting
 process resources and management of running processes.
+
+Note:
+Implementa molte funzionalità offerte dagli strumenti a riga di
+comando UNIX. Supporta le seguenti piattaforme:
+ * Linux
+ * windows
+ * Mac OS
+ * sistemi BSD
+ * Sun Solaris
+ * AIX
+
 -
 #### psutil: example
 ```python
@@ -251,11 +349,22 @@ Drastically simplify API development over multiple interfaces
 ![text](md/image/hug.png)
 
 http://www.hug.rest/
+Note:
+Hug è il modo più veloce e moderno per creare API.
+
 -
 #### hug
 Design and develop your API once, then expose it however your
 clients need to consume it. Be it locally, over HTTP, or through the
 command line
+
+Note:
+Le API possono essere invocate sia localmente, tramite HTTP o tramite
+la riga di comando.
+
+È stato scritto per consumare risorse solo quando necessario, inoltre
+è compilato con Cython per ottenere prestazioni migliori.
+
 -
 #### hug: example
 ```python
@@ -270,6 +379,11 @@ def happy_birthday(name: hug.types.text, age: hug.types.number, hug_timer=3):
 ```bash
 $ hug -f example.py
 ```
+Note:
+hug semplifica l'esposizione di più versioni dell'API, puoi
+semplicemente specificare quale versione o intervallo di versioni
+supporta un endpoint.
+
 -
 #### hug: response
 ```bash
@@ -285,6 +399,14 @@ $ curl 'http://localhost:8000/happy_birthday'
 $ curl 'http://localhost:8000/happy_birthday?name=Danilo&age=32'
 {"message": "Happy 32 Birthday Danilo!", "took": 0.0}
 ```
+
+Note:
+Usando docstrings e type annotation nel codice hug li utilizza per
+generare automaticamente la documentazione. delle API.
+
+Sfrutta le type annotation di Python 3 per la validazione e
+conversione degli argomenti.
+
 ---
 ## scrapy
 
@@ -294,6 +416,13 @@ In a fast, simple, yet extensible way.
 ![text](md/image/scrapy.png)
 
 https://scrapy.org/
+
+Note:
+Scrapy è un framework opensource ad alto livello di crawling e web
+scraping, utilizzato per eseguire la scansione di siti Web ed estrarre
+dati strutturati dalle loro pagine. Può essere utilizzato per molti
+scopi, dal data mining al monitoraggio e ai test automatizzati. 
+
 -
 #### scrapy: example
 ```python
@@ -310,6 +439,11 @@ class BlogSpider(scrapy.Spider):
         for next_page in response.css('div.prev-post > a'):
             yield response.follow(next_page, self.parse)
 ```
+
+Note:
+parse() è un metodo che verrà chiamato per gestire la risposta
+scaricata per ciascuna delle request effettuate.
+
 -
 #### scrapy: selectors
 ```python
@@ -330,6 +464,18 @@ class BlogSpider(scrapy.Spider):
 >>> response.selector.xpath('//span/text()').extract()
 [u'good']
 ```
+Note:
+Quando esegui lo scraping di pagine Web, l'attività più comune che
+devi eseguire è estrarre i dati dall'HTML. Ci sono
+diverse librerie disponibili per raggiungere questo obiettivo,
+come ad esempio: Esistono diverse librerie che fanno questo:
+ * BeautifulSoup (lento)
+ * lxml
+
+Scrapy ha un proprio meccanismo per l'estrazione dei dati chiamato
+selettori perché "selezionano" alcune parti del documento HTML
+grazie a espressioni XPath o CSS.
+
 ---
 ## sh
 
@@ -339,6 +485,9 @@ any program as if it were a function
 ![text](md/image/sh.png)
 
 https://amoffat.github.io/sh/
+Note:
+ti consente di chiamare qualsiasi programma come fosse una funzione.
+
 -
 #### sh: example
 ```python
@@ -354,6 +503,20 @@ except sh.ErrorReturnCode_2:
 ```python
 sh.wc(sh.ls("-1"), "-l")
 ```
+Note:
+
+Da notare che queste non sono funzioni Python, stanno eseguendo i
+comandi esegiobili sul tuo sistema risolvendo dinamicamente il tuo
+$PATH, proprio come fa la shell, e quindi incapsula il binario in una
+funzione.
+
+In questo modo, tutti i programmi sul tuo sistema sono
+facilmente disponibili da Python.
+
+sh si basa su varie chiamate di sistema Unix e funziona solo su
+sistemi operativi simili a Unix: Linux, macOS, BSD ecc. Windows non è
+supportato.
+
 ---
 ## ntfy
 brings notification to your shell
@@ -362,7 +525,11 @@ brings notification to your shell
 
 https://ntfy.readthedocs.io/en/latest/
 
-Note: It can automatically provide desktop notifications when long running commands finish or it can send push notifications to your phone when a specific command finishes.
+Note: 
+Può fornire automaticamente notifiche desktop quando comandi in
+esecuzione molto lunghi terminano o può inviare notifiche push al tuo
+telefono.
+
 -
 #### ntfy: example
 ```python
@@ -374,12 +541,26 @@ $ ntfy done sleep 10
 
 $ ntfy -b linux send "Linux Desktop Notifications!"
 ```
+Note:
+Attravarso dipendenze extra supporta mote cose tra cui:
+ * emoticon
+ * xmpp
+ * telegram
+ * slack
+ * rocket.chat
+
 ---
 ## pydantic
 Data validation and settings management using python type annotations
 
-
 https://pydantic-docs.helpmanual.io/
+
+Note:
+Esegue la convalida dei dati e gestione delle impostazioni tramite annotazioni.
+
+pydantic rinforza i type hints e quando fallisce la validazione stampa
+errori user frinedly.
+
 -
 #### pydantic: example
 ```python
@@ -435,9 +616,14 @@ except ValidationError as e:
 for the creation, manipulation, and study of the structure, dynamics,
 and functions of complex networks.
 
-![text](md/image/networkx.png)
+![text](md/image/networkx.svg)
 
 https://networkx.github.io/
+
+Note:
+creazione, la manipolazione e studio della struttura, della dinamica e
+delle funzioni dei grafi.
+
 -
 #### networkx: example
 ```python
@@ -450,6 +636,12 @@ https://networkx.github.io/
 >>> G.add_edge(1, 2)
 >>> G.add_edges_from([(1, 2), (1, 3)])
 ```
+Note:
+Con NetworkX puoi caricare e archiviare reti in formati di dati
+standard e non, generare molti tipi di reti, analizzarne la struttura,
+costruire modelli, progettare nuovi algoritmi di rete, disegnare reti
+e molto altro.
+
 -
 #### networkx: example
 ```python
@@ -466,10 +658,17 @@ plt.show()
 -
 #### networkx: example
 ![text](md/image/networkx_example.png)
+
+Note:
+NetworkX è usato non solo da informatici ma anche da matematici,
+fisici, biologi e chi studia le scienze sociali.
+
 ---
 ## prompt-toolkit
 
 building powerful interactive command lines and terminal applications
+
+![text](md/image/prompt-toolkit.png)
 
 https://python-prompt-toolkit.readthedocs.io
 -
@@ -480,6 +679,21 @@ https://python-prompt-toolkit.readthedocs.io
  - Selecting text for copy/paste. (Both Emacs and Vi style)
  - Mouse support for cursor positioning and scrolling
  - Auto suggestions. (Like fish shell)
+Note:
+ * sintax highlighting
+ * Multi-line input editing
+ * Completamento automatico
+ * Selezione del testo per copia/incolla. (Sia stile Emacs che Vi.)
+ * Supporto del mouse per il posizionamento e lo scroll del
+   cursore.
+ * Suggerimenti automatici.
+ * Ricerca avanti e indietro.
+ * Funziona bene con caratteri Unicode
+
+Funziona ovunque:
+ * su sistemi Linux, OS X, OpenBSD e Windows.
+ * può essere eseguita in un server telnet/ssh o in un processo
+   asyncio.
 -
 #### prompt-toolkit: example
 ```python
@@ -823,9 +1037,32 @@ Customer.select(lambda c: sum(c.orders.price) > 1000)
 ```
 ---
 # Thanks
+click
+arrow
+colorama
+colorlog
+bokeh
+psutil
+hug
+scrapy
+sh
+ntfy
+pydantic
+networkx
+prompt-toolkit
+asciimatics
+prettytable
+theFuzz
+progressbar2
+doctest
+pillow
+grequests
+behave
+sched
+pony
 
 https://github.com/piuma/pylibs-slide
 
-https://hub.docker.com/r/piuma/md-slide
-
 __danilo.abbasciano@par-tec.it__
+
+Note: Con questo concludo la mia presentazione

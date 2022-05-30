@@ -12,6 +12,32 @@ risparmiare tempo e linee di codice. Farò una rapida presentazione per
 ognuna di esse facendone risaltare i benefici e le principali
 funzionalità. Da non perdere!
 
+#### Libreries
+
+ * click
+ * arrow
+ * colorama
+ * structlog
+ * bokeh
+ * psutil
+ * hug
+ * scrapy
+ * sh
+ * ntfy
+ * pydantic
+ * networkx
+ * prompt-toolkit
+ * asciimatics
+ * prettytable
+ * theFuzz
+ * progressbar2
+ * doctest
+ * pillow
+ * grequests
+ * behave
+ * sched
+ * pony
+
 #### How to show slides
 
 ```bash
