@@ -14,8 +14,8 @@ della mia cassetta di attrezzi e che spero entrino a far parte anche
 della vostra.
 
 Per ognuna di esse ci sara` una slide di presentazione con nome,
-payoff, logo e link al sito. Poi vedremo dei piccoli esempi di
-utilizzo.
+payoff, logo e link al sito. Vi spiegherò come funziona e vedremo dei
+piccoli esempi di utilizzo.
 
 -
 ## Why?
@@ -37,7 +37,7 @@ in modo elegante e con pochissime righe di codice.
 Le sue principali caratteristiche sono:
  * supporto dei sottocomandi
  * generazione automatica dell'help
- * tutto sulle opzioni:
+ * tutta la gestione delle opzioni:
    - default
    - tipo
    - descrizione
@@ -97,10 +97,9 @@ functionality but don't work very well from a usability perspective:
  - Too many types: date, time, datetime, tzinfo, timedelta, relativedelta, etc
  - Timezones and timestamp conversions are verbose
 Note:
-La libreria stadard ha la gestione di data, ora e timezone quasi
-completa ma non funzionano molto bene dal punto di vista
-dell'usabilità:
- - Troppi moduli: datetime, time, calendar, dateutil, pytz and more
+La libreria stadard ha già la gestione di data, ora e timezone ma non
+funzionano molto bene dal punto di vista dell'usabilità:
+ - Troppi moduli: datetime, time, calendar, dateutil, pytz e altri
  - Troppi tipi: date, time, datetime, tzinfo, timedelta, relativedelta, etc
  - La conversione tra fuiorari e timezones è verbosa
 -
@@ -125,7 +124,8 @@ Note:
 arrow.now()
 arrow.now( passando la zona )
 arrow.shift() si può schiftare indietro o avanti
-arrow.get() permette la creazione da timezone o parsando una stringa
+arrow.get() permette la creazione di un oggetto arrow a partire da una
+stringa o da un timestamp
 
 -
 #### arrow: Example 2
@@ -158,7 +158,7 @@ text
 https://pypi.org/project/colorama/
 Note:
 Le sequenze di caratteri di escape ANSI sono utilizzate
-per produrre testo colorato nel terminale e posizionare il cursore su
+per produrre testo colorato e posizionare il cursore sui terminali di
 Linux e Mac.
 
 Colorama fa funzionare questa modalità anche su Windows perché
@@ -182,8 +182,8 @@ print('back to normal now')
 ```
 Note:
 In Windows la chiamata init() filtra le sequenze di escape ANSI per
-tutto lo stdout e stderr e lo sostituisce con la chiamta
-Win32 equivalente. Per le altre piattaforme init() non ha nessun
+lo stdout e stderr e lo sostituisce con la chiamta Win32
+equivalente. Per le altre piattaforme init() non ha nessun 
 effetto.
 
 ---
@@ -220,7 +220,11 @@ log = log.bind(user="hynek", another_key=42)
 -
 #### structlog: usage
 ```python
->>> structlog.configure(processors=[structlog.processors.JSONRenderer()])
+>>> import structlog
+
+>>> structlog.configure(
+...     processors=[structlog.processors.JSONRenderer()]
+... )
 
 >>> structlog.get_logger().msg("hi")
 {"event": "hi"}
@@ -240,10 +244,11 @@ browsers for presentation
 
 https://bokeh.pydata.org/en/latest/
 Note:
-Ti aiuta a creare una grafica meravigliosa, che va da grafici semplici
-a dashboard complessi con set di dati in streaming. Con Bokeh, puoi
-creare visualizzazioni basate su JavaScript senza scrivere
-personalmente JavaScript.
+Ti aiuta a creare una grafici di ogni tipo, da quelli semplici
+a dashboard piu complesse che prendono i dati in streaming.
+
+Con Bokeh, puoi creare visualizzazioni basate su JavaScript senza
+scrivere in JavaScript. 
 
 -
 #### bokeh
@@ -256,8 +261,8 @@ create interactive plots, dashboards, and data applications.
 
 Note:
 Il suo obiettivo è fornire una costruzione elegante e concisa di
-grafica versatile ed estendere questa capacità con interattività ad
-alte prestazioni su set di dati molto grandi o in streaming.
+grafica. I grafici sono interattivi e ha alte prestazioni su set di
+dati molto grandi.
 
 Bokeh può aiutare chiunque desideri creare rapidamente e facilmente
 grafici interattivi, dashboard e applicazioni dati.
@@ -396,16 +401,15 @@ $ curl 'http://localhost:8000/happy_birthday'
 }
 ```
 ```bash
-$ curl 'http://localhost:8000/happy_birthday?name=Danilo&age=32'
-{"message": "Happy 32 Birthday Danilo!", "took": 0.0}
+$ curl 'http://localhost:8000/happy_birthday?name=Danilo&age=39'
+{"message": "Happy 39 Birthday Danilo!", "took": 0.0}
 ```
 
 Note:
 Usando docstrings e type annotation nel codice hug li utilizza per
-generare automaticamente la documentazione. delle API.
+generare automaticamente la documentazione delle API.
 
-Sfrutta le type annotation di Python 3 per la validazione e
-conversione degli argomenti.
+ed anche per la validazione e conversione degli argomenti.
 
 ---
 ## scrapy
@@ -466,14 +470,13 @@ scaricata per ciascuna delle request effettuate.
 ```
 Note:
 Quando esegui lo scraping di pagine Web, l'attività più comune che
-devi eseguire è estrarre i dati dall'HTML. Ci sono
-diverse librerie disponibili per raggiungere questo obiettivo,
-come ad esempio: Esistono diverse librerie che fanno questo:
+devi eseguire è estrarre i dati dall'HTML. Esistono diverse librerie
+che fanno questo: 
  * BeautifulSoup (lento)
  * lxml
 
 Scrapy ha un proprio meccanismo per l'estrazione dei dati chiamato
-selettori perché "selezionano" alcune parti del documento HTML
+selector perché "selezionano" alcune parti del documento HTML
 grazie a espressioni XPath o CSS.
 
 ---
@@ -506,9 +509,8 @@ sh.wc(sh.ls("-1"), "-l")
 Note:
 
 Da notare che queste non sono funzioni Python, stanno eseguendo i
-comandi esegiobili sul tuo sistema risolvendo dinamicamente il tuo
-$PATH, proprio come fa la shell, e quindi incapsula il binario in una
-funzione.
+comandi eseguibili sul tuo sistema proprio come fa la shell, e in
+questo caso incapsula il binario in una funzione.
 
 In questo modo, tutti i programmi sul tuo sistema sono
 facilmente disponibili da Python.
@@ -621,8 +623,7 @@ and functions of complex networks.
 https://networkx.github.io/
 
 Note:
-creazione, la manipolazione e studio della struttura, della dinamica e
-delle funzioni dei grafi.
+crea, la manipola e studia la struttura dei grafi.
 
 -
 #### networkx: example
@@ -637,10 +638,10 @@ delle funzioni dei grafi.
 >>> G.add_edges_from([(1, 2), (1, 3)])
 ```
 Note:
-Con NetworkX puoi caricare e archiviare reti in formati di dati
+Con NetworkX puoi caricare e salvare grafi in formati di dati
 standard e non, generare molti tipi di reti, analizzarne la struttura,
-costruire modelli, progettare nuovi algoritmi di rete, disegnare reti
-e molto altro.
+costruire modelli, progettare nuovi algoritmi di rete, disegnarli e
+molto altro.
 
 -
 #### networkx: example
@@ -733,6 +734,14 @@ http://asciimatics.readthedocs.io
  - Mouse input
  - Detecting and handling when the console resizes
  - Screen scraping
+Note:
+
+ * Testo con stili e colori
+ * Posizionamento del cursore
+ * Input da tastiera
+ * Input del mouse
+ * Supporta il ridimensionamento della console
+ * Screen scraping
 -
 #### asciimatics: Why?
 In addition, it provides more complex features including:
@@ -742,6 +751,20 @@ In addition, it provides more complex features including:
  - Many animation effects - e.g. sprites, particle systems, banners, etc.
  - Various widgets for text UIs - e.g. buttons, text boxes, radio
  - buttons, etc.
+
+Note:
+Inoltre, fornisce alcune API semplici e di alto livello per fornire
+funzionalità più complesse, come:
+
+ * Disegno di linee
+ * Conversione da immagine a ASCII
+ * Molti effetti di animazione
+ * Vari widget per UI di testo
+
+Attualmente è stata testata su CentOS, Raspbian, Ubuntu, Windows, OSX,
+anche se dovrebbe funzionare anche per qualsiasi altra piattaforma che
+fornisce un'implementazione di curses.
+
 -
 #### asciimatics: example
 ```python
@@ -790,6 +813,17 @@ x.add_row(["Sydney", 2058, 4336374, 1214.8])
 x.add_row(["Melbourne", 1566, 3806092, 646.9])
 x.add_row(["Perth", 5386, 1554769, 869.4])
 ```
+Note:
+crei un oggetto PrettyTable.
+Esistono vari modi per inserire dei dati:
+ * riga per riga
+ * tutte le righe insieme
+ * colonna per colonna
+ * import da csv
+ * import da database cursor
+ 
+ed è possibile anche cancellare dati
+
 -
 #### prettytable: print(x)
 ```text
@@ -805,14 +839,27 @@ x.add_row(["Perth", 5386, 1554769, 869.4])
 | Sydney    | 2058 |  4336374   |      1214.8     |
 +-----------+------+------------+-----------------+
 ```
+Note:
+
+ * visualizzare la tabella...
+ * visualizzare solo alcune colonne o righe
+ * modificare l'ordine delle colonne
+ * ordinare le righe
+ * cambiare stile della tabella
+
 ---
 ## TheFuzz
 
-Fuzzy string matching like a boss. It uses Levenshtein Distance to
-calculate the differences between sequences in a simple-to-use
-package. 
+Fuzzy string matching like a boss.
+
+It uses Levenshtein Distance to calculate the differences between
+sequences in a simple-to-use package.
 
 https://github.com/seatgeek/thefuzz
+Note:
+date due stringhe calcola la distanza di Levenshtein che è la misura
+di quanto le strighe sono simili.
+
 -
 #### theFuzz: example
 ```python
@@ -820,6 +867,11 @@ https://github.com/seatgeek/thefuzz
 >>> fuzz.ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear")
     91
 ```
+Note:
+ * simle ratio
+ * partial ratio
+ * token sort ratio
+ * ...
 ---
 ## progressbar2
 
@@ -828,6 +880,16 @@ long running operation, providing a visual cue that processing is
 underway
 
 https://progressbar-2.readthedocs.io/
+
+Note:
+Crea una barra di avanzamento testuale, viene in genere utilizzata per
+visualizzare lo stato di avanzamento di un'operazione lunga,
+per indicare che l'elaborazione è in corso.
+
+Fork di un vecchio progetto progressbar non più mantenuto. È
+compatibile con l'originale così si può sotituire con il nuovo
+progetto senza ulteriori modifiche.
+
 -
 #### progressbar2: example
 ```python
@@ -838,22 +900,36 @@ for i in progressbar.progressbar(range(100)):
     time.sleep(0.02)
 ```
 ```
-19% (19 of 100) |##           | Elapsed Time: 0:00:00 ETA: 0:00:01
+19% (19 of 100) |##          | Elapsed Time: 0:00:00 ETA: 0:00:01
 ```
+Note:
+è molto facile da usare, ma molto potente.
+
+Supporta il ridimensionamento automatico.
+
 ---
 ## doctest
 
-searches for pieces of text that look like interactive Python
+Searches for pieces of text that look like interactive Python
 sessions, and then executes those sessions to verify that they work
 exactly as shown
 
 https://docs.python.org/3/library/doctest.html
+
+Note:
+Il modulo doctest cerca parti di testo che sembrano sessioni Python
+interattive, quindi li esegue per verificare che funzionino.
+
+ * Per verificare che le docstring di un modulo siano aggiornate
+   verificando che tutti gli esempi interattivi funzionino ancora come
+   documentato.
+
+ * Per eseguire test di regressione.
+
+ * Per scrivere documentazione tutorial per un pacchetto
+
 -
 #### doctest: example
-```python
-import doctest
-doctest.testfile("example.txt")
-```
 ```
 The ``example`` module
 ======================
@@ -871,6 +947,21 @@ Now use it:
     >>> factorial(6)
     120
 ```
+```python
+import doctest
+doctest.testfile("example.txt")
+```
+
+Note:
+Un'altra semplice applicazione di doctest è testare gli esempi in un
+file di testo.
+
+testfile() può essere invocato anche da riga di comando. Si può usare
+l'interprete Python per eseguire il modulo doctest e passargli il nome
+del file:
+
+python -m doctest -v esempio.txt
+
 -
 #### doctest: example
 ```
@@ -887,7 +978,16 @@ Got:
 
 friendly PIL (Python Imaging Library) fork
 
+![text](md/image/pillow.png)
+
 https://pillow.readthedocs.io/
+
+Note:
+ampio supporto per i formati di file
+
+una rappresentazione interna efficiente e buona capacità di
+elaborazione delle immagini.
+
 -
 #### pillow: creating thumbnails
 ```python
@@ -904,29 +1004,36 @@ im.thumbnail(size)
 im.save("image.jpeg")
 im.show()
 ```
+Note:
+
+ * creare thumbnails
+ * converte tra formati diversi
+ * stampa di immagini
+ * filtri
+ * rotazioni
+ * ridimensionamento
 ---
-## grequests
+## requests-futures
 
-GRequests allows you to use Requests with Gevent to make asynchronous
-HTTP Requests easily
+Small add-on for the python requests http library.
 
-https://github.com/kennethreitz/grequests
+https://github.com/ross/requests-futures
+
 -
-#### grequests: example
+#### requests-futures: example
 ```python
-import grequests
-urls = [
-    'http://www.piumalab.org',
-    'http://kernel.org',
-    'http://python-requests.org',
-    'http://fakedomain/'
-]
-# Create a set of unsent Requests:
-rs = (grequests.get(u) for u in urls)
+from concurrent.futures import as_completed
+from requests_futures.sessions import FuturesSession
 
-# Send them all at the same time:
-grequests.map(rs)
+futures=[session.get(f'http://httpbin.org/get?{i}') for i in range(3)]
+
+for future in as_completed(futures):
+    resp = future.result()
+	print(resp.json()['url'])
 ```
+Note:
+Di default crea 8 worker.
+
 ---
 ## behave
 
@@ -936,6 +1043,13 @@ code
 ![text](md/image/behave.png)
 
 https://behave.readthedocs.io/en/latest/
+Note:
+Lo sviluppo basato su behavior-driven (o BDD) è una tecnica agile di
+sviluppo software che incoraggia la collaborazione tra sviluppatori,
+QA e persone non tecniche.
+
+behavior usa test scritti con un linguaggio naturale
+
 -
 #### behave: tutorial.feature
 ```gherkin
@@ -984,6 +1098,15 @@ Feature: showing off behave # features/tutorial.feature:1
 implements a general purpose event scheduler
 
 https://docs.python.org/3/library/sched.html
+
+Note:
+Il modulo Sched fa parte della libreria standard, può essere
+utilizzato nella creazione di bot e altre applicazioni di monitoraggio
+e automazione.
+
+Il modulo sched implementa un programmatore di eventi generico per
+l'esecuzione di attività in orari specifici.
+
 -
 #### sched: example
 ```python
@@ -1013,6 +1136,14 @@ Write SQL queries using Python generators & lambdas
 ![text](md/image/pony.jpg)
 
 https://ponyorm.com/
+
+Note:
+SQL ORM Object relational mapper degna alternativa a SQLAlchemy.
+
+ * intuitivo
+ * Supporta i db più popolari: SQLite, PostgreSQL, MySQL, Oracle
+ * stabile
+
 -
 #### pony: example
 ```python
@@ -1037,10 +1168,10 @@ Customer.select(lambda c: sum(c.orders.price) > 1000)
 ```
 ---
 # Thanks
-click
+_click
 arrow
 colorama
-colorlog
+structlog
 bokeh
 psutil
 hug
@@ -1056,10 +1187,10 @@ theFuzz
 progressbar2
 doctest
 pillow
-grequests
+requests-futures
 behave
 sched
-pony
+pony_
 
 https://github.com/piuma/pylibs-slide
 
