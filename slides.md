@@ -4,6 +4,30 @@
 Danilo Abbasciano
 
 _danilo.abbasciano@par-tec.it_
+
+-
+
+## Who?
+
+### Danilo Abbasciano
+
+_Senior Cloud Engineer_
+
+More than 15 years in managing large infrastructure,
+coding in several languages but loves writing in Python.
+
+I try to optimize the world!
+
+-
+
+![text](md/image/par-tec.png)
+
+_https://www.par-tec.it_
+
+Note:
+
+Milano, Roma, Pistoia, Pomezia
+
 -
 ## What?
 Today i am going to list 25 python libraries which have been a part of
@@ -17,11 +41,17 @@ Per ognuna di esse ci sara` una slide di presentazione con nome,
 payoff, logo e link al sito. Vi spiegherò come funziona e vedremo dei
 piccoli esempi di utilizzo.
 
+Il ritmo sarà sostenuto perché ci sono molte cose che vorrei farvi
+vedere.
+
 -
 ## Why?
-Note: Perche'?
-devo ringraziare il mio collega Roberto Polli per avermi spinto a
-presentare il talk e devo ringraziare anche voi per averlo votato.
+Note: Perché?
+Perché è il talk che avrei voluto ascoltare quando iniziai a studiare
+python.
+
+Devo Ringraziare Il mio collega Roberto Polli per avermi spinto a
+presentare il talk e Enrico Bianchi per avermi aiutato con le slide.
 
 Iniziamo subito con la prima libreria
 
@@ -34,6 +64,9 @@ https://click.palletsprojects.com
 
 Note: Click è un package per la creazione di command line interfaces
 in modo elegante e con pochissime righe di codice.
+
+getopts macchinoso
+
 Le sue principali caratteristiche sono:
  * supporto dei sottocomandi
  * generazione automatica dell'help
@@ -207,8 +240,8 @@ asyncio. Flessibile.
 
 >>> log = structlog.get_logger()
 
->>> log.msg("greeted", whom="world", more_than_a_string=[1, 2, 3])  
-2016-09-17 10:13.45 greeted                        more_than_a_string=[1, 2, 3] whom='world'
+>>> log.msg("greeted", whom="world", more_than_a_str=[1, 2])
+2016-09-17 10:13.45 greeted   more_than_a_str=[1, 2] whom='world'
 ```
 Note:
 Poiché i log sono dizionari, è possibile associare delle coppie
@@ -749,8 +782,7 @@ In addition, it provides more complex features including:
  - Anti-aliased ASCII line-drawing
  - Image to ASCII conversion - including JPEG and GIF formats
  - Many animation effects - e.g. sprites, particle systems, banners, etc.
- - Various widgets for text UIs - e.g. buttons, text boxes, radio
- - buttons, etc.
+ - Various widgets for text UIs - e.g. buttons, text boxes, radio...
 
 Note:
 Inoltre, fornisce alcune API semplici e di alto livello per fornire
