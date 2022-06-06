@@ -33,7 +33,7 @@ funzionalità. Da non perdere!
  * progressbar2
  * doctest
  * pillow
- * grequests
+ * requests-futures
  * behave
  * sched
  * pony

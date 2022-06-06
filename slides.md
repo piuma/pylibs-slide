@@ -729,15 +729,6 @@ Funziona ovunque:
  * può essere eseguita in un server telnet/ssh o in un processo
    asyncio.
 -
-#### prompt-toolkit: example
-```python
-from __future__ import unicode_literals
-from prompt_toolkit import prompt
-
-text = prompt('Give me some input: ')
-print('You said: %s' % text)
-```
--
 #### prompt-toolkit: autocompletion example
 ```python
 from prompt_toolkit import prompt
