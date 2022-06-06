@@ -50,3 +50,10 @@ docker run --rm -p 8000:8000 -p 35729:35729 \
   
 ```
 Then open browser at url http://localhost:8000
+
+#### How to export to pdf
+```bash
+$ npm install decktape
+
+$`npm bin`/decktape -s 1024x768 http://localhost:8000/ slide.pdf
+```
